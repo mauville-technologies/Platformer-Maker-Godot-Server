@@ -1,0 +1,27 @@
+version: 2
+
+jobs:
+    build:
+        machine:
+            enabled: true
+        steps:
+            - add_ssh_keys:
+                fingerprints:
+                    - "7c:6a:20:b5:a4:1d:a7:b5:e1:c7:2c:81:ca:34:d7:96"
+            - run:
+                name: Checkout code on server
+                command: |
+                    ssh ozzadar@ozzadar.com 'rm -rf platformer_mission_server'
+                    ssh ozzadar@ozzadar.com 'git clone git@github.com:Ozzadar/platformer_mission_server.git'
+            - run:
+                name: Bring down old service
+                command: |
+                    ssh ozzadar@ozzadar.com 'CWD=$PWD && cd platformer_mission_server && docker-compose down && cd $CWD'
+            - run:
+                name: Build new container
+                command: |
+                    ssh ozzadar@ozzadar.com 'CWD=$PWD && cd platformer_mission_server && docker-compose build && cd $CWD'
+            - run:
+                name: Bring up service
+                command: |
+                    ssh ozzadar@ozzadar.com 'CWD=$PWD && cd platformer_mission_server && docker-compose up -d && cd $CWD'

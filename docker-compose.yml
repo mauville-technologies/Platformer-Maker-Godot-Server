@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+    rethinkdb:
+        image: rethinkdb:latest
+        volumes:
+            - rethink-data:/data
+        networks:
+            - pm_network
+        ports:
+            - 28015:28015
+        restart: always
+    pm_server:
+        build: ./
+        image: pm_server:${API_VERSION}
+        ports:
+            - "${SERVER_PORT}:${SERVER_PORT}"
+        networks:
+            - pm_network
+        env_file:
+            - .env
+        depends_on:
+            - rethinkdb
+        restart: always
+
+networks:
+    pm_network:
+volumes:
+    rethink-data:
