@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-
+	"fmt"
 	"github.com/ozzadar/platformer_mission_server/auth"
 	"github.com/ozzadar/platformer_mission_server/models"
 	"github.com/ozzadar/platformer_mission_server/responses"
@@ -13,7 +13,20 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+func setupResponse(w *http.ResponseWriter, req *http.Request) {
+    (*w).Header().Set("Access-Control-Allow-Origin", "*")
+    (*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+    (*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	fmt.Println("request")
+}
+
+
 func (server *Server) Login(w http.ResponseWriter, r *http.Request) {
+	setupResponse(&w, r)
+	if (*r).Method == "OPTIONS" {
+		return
+	}
+
 	body, err := ioutil.ReadAll(r.Body)
 
 	if err != nil {
