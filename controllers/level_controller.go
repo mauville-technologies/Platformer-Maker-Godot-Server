@@ -17,11 +17,6 @@ import (
 )
 
 func (server *Server) PostLevel(w http.ResponseWriter, r *http.Request) {
-        setupResponse(&w, r)
-        if (*r).Method == "OPTIONS" {
-                return
-        }
-
 	body, err := ioutil.ReadAll(r.Body)
 
 	if err != nil {
@@ -75,10 +70,6 @@ func (server *Server) PostLevel(w http.ResponseWriter, r *http.Request) {
 }
 
 func (server *Server) GetLevel(w http.ResponseWriter, r *http.Request) {
-	setupResponse(&w, r)
-        if (*r).Method == "OPTIONS" {
-                return
-        }
 	withMeta := true
 	keys, ok := r.URL.Query()["withMeta"]
 
@@ -115,11 +106,6 @@ func (server *Server) GetLevel(w http.ResponseWriter, r *http.Request) {
 }
 
 func (server *Server) GetRandomLevels(w http.ResponseWriter, r *http.Request) {
-        setupResponse(&w, r)
-        if (*r).Method == "OPTIONS" {
-                return
-        }
-
 	numberOfLevels := 5
 	keys, ok := r.URL.Query()["count"]
 

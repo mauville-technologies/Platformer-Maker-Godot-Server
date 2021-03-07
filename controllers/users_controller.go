@@ -16,10 +16,6 @@ import (
 )
 
 func (server *Server) CreateUser(w http.ResponseWriter, r *http.Request) {
-        setupResponse(&w, r)
-        if (*r).Method == "OPTIONS" {
-                return
-        }
 	body, err := ioutil.ReadAll(r.Body)
 
 	if err != nil {
@@ -85,10 +81,6 @@ func (server *Server) GetUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (server *Server) UpdateUser(w http.ResponseWriter, r *http.Request) {
-        setupResponse(&w, r)
-        if (*r).Method == "OPTIONS" {
-                return
-        }
 	vars := mux.Vars(r)
 
 	id := html.EscapeString(vars["id"])
@@ -138,10 +130,6 @@ func (server *Server) UpdateUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (server *Server) DeleteUser(w http.ResponseWriter, r *http.Request) {
-        setupResponse(&w, r)
-        if (*r).Method == "OPTIONS" {
-                return
-        }
 	vars := mux.Vars(r)
 
 	id := html.EscapeString(vars["id"])
@@ -171,10 +159,6 @@ func (server *Server) DeleteUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (server *Server) GetLevelsForUser(w http.ResponseWriter, r *http.Request) {
-        setupResponse(&w, r)
-        if (*r).Method == "OPTIONS" {
-                return
-        }
 	vars := mux.Vars(r)
 
 	id := html.EscapeString(vars["id"])
