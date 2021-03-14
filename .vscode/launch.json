@@ -10,7 +10,7 @@
             "request": "launch",
             "mode": "debug",
             "program": "${workspaceRoot}",
-            "env": {},
+            "envFile":"${workspaceFolder}/.env",
             "args": []
         }
     ]
