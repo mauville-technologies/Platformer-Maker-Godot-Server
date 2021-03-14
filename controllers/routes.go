@@ -16,7 +16,7 @@ func (s *Server) initializeRoutes() {
 	s.Router.HandleFunc("/users/{id}", s.SetMiddlewareJSON(s.SetMiddlewareAuthentication(s.DeleteUser))).Methods("DELETE")
 
 	s.Router.HandleFunc("/levels", s.SetMiddlewareJSON(s.SetMiddlewareAuthentication(s.PostLevel))).Methods("POST", "OPTIONS")
-	s.Router.HandleFunc("/levels/{id}", s.SetMiddlewareJSON(s.SetMiddlewareAuthentication(s.GetLevel))).Methods("GET")
+	s.Router.HandleFunc("/levels/{id}", s.SetMiddlewareJSON(s.SetMiddlewareAuthentication(s.GetLevel))).Methods("GET", "OPTIONS")
 
 	s.Router.HandleFunc("/play/random", s.SetMiddlewareJSON(s.SetMiddlewareAuthentication(s.GetRandomLevels))).Methods("GET", "OPTIONS")
 
